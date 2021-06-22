@@ -272,6 +272,7 @@ Grocery List
   color: var(--clr-grey-1);
   letter-spacing: 2px;
   transition: var(--transition);
+  width: 100%;
 }
 .edit-btn,
 .delete-btn,
@@ -282,6 +283,7 @@ Grocery List
   font-size: 0.7rem;
   margin: 0 0.15rem;
   transition: var(--transition);
+  width: 20%;
 }
 .edit-btn {
   color: var(--clr-green-light);

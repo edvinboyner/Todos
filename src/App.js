@@ -1,79 +1,79 @@
-import React, { useState, useEffect, useRef } from 'react';
-import List from './List';
-import Alert from './Alert';
+import React, { useState, useEffect, useRef } from 'react'
+import List from './List'
+import Alert from './Alert'
 
 const getLocalStorage = () => {
-  let list = localStorage.getItem('list');
+  let list = localStorage.getItem('list')
   if (list) {
-    return JSON.parse(localStorage.getItem('list'));
+    return JSON.parse(localStorage.getItem('list'))
   } else {
-    return [];
+    return []
   }
-};
+}
 
 function App() {
-  const [name, setName] = useState('');
-  const [list, setList] = useState(getLocalStorage());
-  const [isEditing, setIsEditing] = useState(false);
-  const [editID, setEditID] = useState(null);
+  const [name, setName] = useState('')
+  const [list, setList] = useState(getLocalStorage())
+  const [isEditing, setIsEditing] = useState(false)
+  const [editID, setEditID] = useState(null)
   const [alert, setAlert] = useState({
     show: false,
     msg: '',
     type: '',
-  });
-  const refContainer = useRef(null);
+  })
+  const refContainer = useRef(null)
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!name) {
       // display alert
-      showAlert(true, 'danger', 'please enter value');
+      showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
       setList(
         list.map((item) => {
           if (item.id === editID) {
-            return { ...item, title: name };
+            return { ...item, title: name }
           }
-          return item;
+          return item
         })
-      );
-      setName('');
-      setEditID(null);
-      setIsEditing(false);
-      showAlert(true, 'success', `value changed`);
+      )
+      setName('')
+      setEditID(null)
+      setIsEditing(false)
+      showAlert(true, 'success', `value changed`)
     } else {
-      showAlert(true, 'success', `${name} added to the list`);
+      showAlert(true, 'success', `${name} added to the list`)
       const newItem = {
         id: new Date().getTime().toString(),
         title: name,
         done: false,
-      };
-      setList([...list, newItem]);
-      setName('');
+      }
+      setList([...list, newItem])
+      setName('')
     }
-  };
+  }
 
   const showAlert = (show = false, type = '', msg = '') => {
-    setAlert({ show, type, msg });
-  };
+    setAlert({ show, type, msg })
+  }
 
   const clearList = () => {
-    showAlert(true, 'danger', 'empty list');
-    setList([]);
-  };
+    showAlert(true, 'danger', 'empty list')
+    setList([])
+  }
 
   const deleteItem = (id) => {
-    showAlert(true, 'danger', 'item removed');
-    const newList = list.filter((item) => item.id !== id);
-    setList(newList);
-  };
+    showAlert(true, 'danger', 'item removed')
+    const newList = list.filter((item) => item.id !== id)
+    setList(newList)
+  }
 
   const editItem = (id) => {
-    const specificItem = list.find((item) => item.id === id);
-    setIsEditing(true);
-    setEditID(id);
-    setName(specificItem.title);
-  };
+    const specificItem = list.find((item) => item.id === id)
+    setIsEditing(true)
+    setEditID(id)
+    setName(specificItem.title)
+  }
 
   const toggleItem = (id) => {
     const newList = list.map((item) => {
@@ -81,26 +81,26 @@ function App() {
         const updatedItem = {
           ...item,
           done: !item.done,
-        };
+        }
         showAlert(
           true,
           `${updatedItem.done ? 'success' : 'danger'}`,
           `${updatedItem.done ? 'Task Completed' : 'Task unCompleted'}`
-        );
-        return updatedItem;
+        )
+        return updatedItem
       }
-      return item;
-    });
-    setList(newList);
-  };
+      return item
+    })
+    setList(newList)
+  }
 
   useEffect(() => {
-    localStorage.setItem('list', JSON.stringify(list));
-  }, [list]);
+    localStorage.setItem('list', JSON.stringify(list))
+  }, [list])
 
   useEffect(() => {
-    refContainer.current.focus();
-  });
+    refContainer.current.focus()
+  })
 
   return (
     <>
@@ -139,7 +139,7 @@ function App() {
         {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

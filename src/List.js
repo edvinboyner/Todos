@@ -1,23 +1,24 @@
-import React from 'react';
-import { FaCheckCircle, FaCircle, FaEdit, FaTrash } from 'react-icons/fa';
+import React from 'react'
+import { FaCheckCircle, FaCircle, FaEdit, FaTrash } from 'react-icons/fa'
 
 const List = ({ items, remove, editItem, toggleItem }) => {
   return (
     <div className='grocery-list'>
       {items.map((item) => {
-        const { id, title, done } = item;
+        const { id, title, done } = item
         return (
           <article key={id} className='grocery-item'>
             <p
               className='title'
               onClick={() => toggleItem(id)}
-              style={{ paddingRight: 300 }}
+              // style={{ width: '100%', borderStyle: 'dotted' }}
             >
               {title}
             </p>
-            <div className='btn-container'>
+            <div>
               <button
                 type='button'
+                style={{ borderStyle: 'dotted' }}
                 className='check-btn'
                 onClick={() => toggleItem(id)}
               >
@@ -39,10 +40,10 @@ const List = ({ items, remove, editItem, toggleItem }) => {
               </button>
             </div>
           </article>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default List;
+export default List
