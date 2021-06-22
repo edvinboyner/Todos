@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import List from './List';
 import Alert from './Alert';
 
@@ -21,6 +21,7 @@ function App() {
     msg: '',
     type: '',
   });
+  const refContainer = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -97,6 +98,10 @@ function App() {
     localStorage.setItem('list', JSON.stringify(list));
   }, [list]);
 
+  useEffect(() => {
+    refContainer.current.focus();
+  });
+
   return (
     <>
       <section className='section-center'>
@@ -109,6 +114,7 @@ function App() {
               placeholder='Go to the gym?'
               value={name}
               onChange={(e) => setName(e.target.value)}
+              ref={refContainer}
             />
             <button className='submit-btn' type='submit'>
               {isEditing ? 'edit' : 'submit'}
