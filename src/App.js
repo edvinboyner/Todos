@@ -113,6 +113,7 @@ function App() {
               className='grocery'
               placeholder='Go to the gym?'
               value={name}
+              maxlength='40'
               onChange={(e) => setName(e.target.value)}
               ref={refContainer}
             />
